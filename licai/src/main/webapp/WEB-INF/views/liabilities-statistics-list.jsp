@@ -8,6 +8,10 @@
     <input type="hidden" id="lists_searchCompanyTypeKey"/>
     <input type="hidden" id="lists_searchCompanyYearKey"/>
     <button class="easyui-linkbutton" iconCls="icon-search" onclick="liabilitiesStatisticListSearch()">搜索</button>
+    <%--<button id="export_list" href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="export_list()">搜索</button>--%>
+   <%-- <button id="export_list" href="#" class="easyui-linkbutton" onclick="export_lists" >导出excel</button>--%>
+    <button id="export" href="#" class="easyui-linkbutton" >导出excel</button>
+  <%--  <button id="export" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-export',plain:true">导出为excel</button>--%>
 </div>
 <table id="liabilities-statistic-list" style="width:100%;height:600px"></table>
 
@@ -153,8 +157,35 @@
         }
     });
 
+    $('#export_list').datagrid({
+        url:'/liabilitiesStatistics/export',
+        onBeforeLoad: function (param) {
+            param.pageNo = param.page;
+            param.pageSize = param.rows;
+            param.companyId = $("#lists_searchCompanyId").val();
+            param.reportType = $("#lists_searchCompanyReportTypeKey").val();
+            param.type = $("#lists_searchCompanyTypeKey").val();
+            param.year = $("#lists_searchCompanyYearKey").val();
+            return true;
+        }
+    });
+
     liabilitiesStatisticListSearch = function () {
         $("#liabilities-statistic-list").datagrid('load');
     };
+    export_lists= function () {
+        $("#export_list").datagrid('load');
+        /*$.ajax({
+            url:"/liabilitiesStatistics/export",
+            type:"GET",
+            data:{"companyId":$("#lists_searchCompanyId").val(),
+            "reportType": $("#lists_searchCompanyReportTypeKey").val(),
+            "type":$("#lists_searchCompanyTypeKey").val(),
+            "year":$("#lists_searchCompanyYearKey").val()}
+        });*/
+    }
+    $("#export").click(function () {
+        location ="/liabilitiesStatistics/export";
+    });
 
 </script>

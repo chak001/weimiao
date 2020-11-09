@@ -83,10 +83,8 @@ public class LiabilitiesStatisticsServiceImpl extends ServiceImpl<LiabilitiesSta
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // 关闭writer，释放内存
             writer.close();
         }
-        //此处记得关闭输出Servlet流
         IoUtil.close(out);
     }
 
@@ -107,8 +105,7 @@ public class LiabilitiesStatisticsServiceImpl extends ServiceImpl<LiabilitiesSta
      * 定义导出表格列别名
      **/
     private void addHeaderAlias(ExcelWriter writer) {
-        writer.merge(19, "合并资产负债表数据统计");
-        //writer.addHeaderAlias("companyId", "ID");
+        writer.merge(18, "合并资产负债表数据统计");
         writer.addHeaderAlias("code", "股票代码");
         writer.addHeaderAlias("name", "公司名称");
         writer.addHeaderAlias("year", "年份");

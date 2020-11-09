@@ -1,10 +1,13 @@
 package com.sjzx.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sjzx.entity.ProfitStatistics;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sjzx.model.vo.input.LiabilitiesStatisticsInputVO;
 import com.sjzx.model.vo.output.ProfitStatisticsVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,7 @@ import com.sjzx.model.vo.output.ProfitStatisticsVO;
  */
 public interface ProfitStatisticsMapper extends BaseMapper<ProfitStatistics> {
 
-    IPage<ProfitStatisticsVO> listPage(IPage<ProfitStatisticsVO> iPage, LiabilitiesStatisticsInputVO vo);
+    IPage<ProfitStatisticsVO> listPage(IPage<ProfitStatisticsVO> iPage,@Param("vo")  LiabilitiesStatisticsInputVO vo);
+
+    List<ProfitStatisticsVO> getList(@Param("vo") LiabilitiesStatisticsInputVO vo);
 }
